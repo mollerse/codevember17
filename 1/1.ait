@@ -1,0 +1,43 @@
+@load ait-canvas ;
+@load ait-canvas/node ;
+@load ../utils/turtle ;
+@load ../utils/canvas ;
+@load ../utils/vec ;
+
+normalize: WMin - W / ;
+calcPos: normalize 4 PI * * ;
+
+rainbow: [
+  "#FF0000"
+  "#FF7F00"
+  "#FFFF00"
+  "#00FF00"
+  "#0000FF"
+  "#8B00FF"
+] ;
+
+shape:
+  begin
+  go
+  W 10 * [ _i 10 / WMin + calcPos turn 10 move ] times
+  show ;
+
+initalizeCanvas
+
+"#000" fillStyle
+fillCanvas
+
+"lighter" globalCompositeOperation
+10 shadowBlur
+
+7
+[
+  rainbow _i at dup shadowColor strokeStyle
+  0 9 _i -3 * + vec2
+  [ 2 1.5 1 0.5 ]
+  [ lineWidth dup shape ]
+  step
+]
+times
+
+"1.png" writeImage

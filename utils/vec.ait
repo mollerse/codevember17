@@ -1,0 +1,12 @@
+vec2: [] cons cons ;
+vec3: vec2 cons ;
+
+.x: 0 at ;
+.y: 1 at ;
+.z: 2 at ;
+.xy: 2 take ;
+.xyz: 3 take ;
+.xz: dup first swap last vec2 ;
+.yz: rest ;
+
+explode: [] step ;

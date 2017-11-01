@@ -1,0 +1,17 @@
+{
+  "name": "codevember17",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "1": "ait-lang 1/1.ait"
+  },
+  "keywords": [],
+  "author": "Stian Møllersen <stian.moellersen@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "ait-canvas": "0.5.1",
+    "ait-dom": "0.3.0",
+    "ait-lang": "0.3.3"
+  }
+}

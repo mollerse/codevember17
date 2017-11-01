@@ -1,0 +1,16 @@
+fillCanvas: WMin HMin [] cons cons W H fillRect ;
+
+initalizeCanvas:
+  nodeCanvas canvasContext pop
+  1000 1000 canvasDimensions
+
+  # Save some convenience vars
+  canvasWidth ->> W
+  canvasHeight ->> H
+  W 2 / ->> WMax
+  H 2 / ->> HMax
+  WMax neg ->> WMin
+  HMax neg ->> HMin
+
+  # Center canvas
+  WMax HMax translate ;
