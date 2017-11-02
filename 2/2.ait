@@ -1,0 +1,83 @@
+@load ait-canvas ;
+@load ait-canvas/node ;
+@load ../utils/turtle ;
+@load ../utils/canvas ;
+@load ../utils/vec ;
+
+normalize: WMin - W / ;
+calcPos: normalize 4 PI * * ;
+
+rainbow: [
+  "#FF0000"
+  "#FF7F00"
+  "#FFFF00"
+  "#00FF00"
+  "#0000FF"
+  "#8B00FF"
+] ;
+
+bow: 0.4 head 15 [ -0.05 turn 30 move ] times ;
+invertedBow: -0.4 head 15 [ 0.05 turn 30 move ] times ;
+line: PI 2 / head move ;
+jumpVertical: PI 2 / head jump ;
+jumpHorizontal: 0 head jump ;
+light: -120 jumpVertical 10 line 10 jump 100 line ;
+reset: dup go ;
+
+cake:
+  begin
+  reset
+  bow
+  300 line
+  reset
+  300 line
+  bow
+  reset
+  invertedBow
+  reset
+  120 jumpVertical
+  bow
+  reset
+  180 jumpVertical
+  bow
+  show
+  pop ;
+
+lights:
+  begin
+  go
+  150 jumpHorizontal
+  light
+  150 jumpHorizontal
+  light
+  show ;
+
+
+drawWithNeonEffect:
+  [ 2 1.5 1 0.5 ]
+  [ lineWidth dup exec ]
+  step
+  pop ;
+
+initalizeCanvas
+
+"#000" fillStyle
+fillCanvas
+-225 -150 translate
+
+"lighter" globalCompositeOperation
+10 shadowBlur
+
+4
+[
+  rainbow _i 3 + at dup shadowColor strokeStyle
+  9 _i -3 * + dup vec2
+  dup [ cake ] cons
+  drawWithNeonEffect
+  3 _i -1 * + 0 vec2
+  dup [ lights ] cons
+  drawWithNeonEffect
+]
+times
+
+"2.png" writeImage
