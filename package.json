@@ -4,8 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "1": "ait-lang 1/1.ait",
-    "2": "ait-lang 2/2.ait"
+    "compile": "ait-lang"
   },
   "keywords": [],
   "author": "Stian Møllersen <stian.moellersen@gmail.com>",
