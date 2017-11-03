@@ -1,0 +1,60 @@
+@load ait-canvas ;
+@load ait-canvas/node ;
+@load ../utils/canvas ;
+@load ../utils/vec ;
+
+normalize: WMin - W / ;
+calcPos: normalize 4 PI * * ;
+
+rainbow: [
+  "#FF0000"
+  "#FF7F00"
+  "#FFFF00"
+  "#00FF00"
+  "#0000FF"
+  "#4B0082"
+  "#9400D3"
+] ;
+
+randomAngle: PI 16 / dup neg swap random2 ;
+randomColor: 0 7 random2 floor rainbow of ;
+
+#(len --)
+line:
+  beginPath
+  [0 0] moveTo
+  0 swap vec2
+  lineTo
+  stroke ;
+
+trunk:
+  randomAngle rotate
+  [ -10 line ] drawWithNeonEffect
+  0 -10 translate ;
+
+drawWithNeonEffect:
+  [ 2 1.5 1 0.5 ]
+  [ lineWidth dup exec ]
+  step
+  pop ;
+
+initalizeCanvas
+
+"#000" fillStyle
+fillCanvas
+
+"lighter" globalCompositeOperation
+10 shadowBlur
+0 HMax translate # [0 0] in bottom right
+#PI 4 / rotate # Y is diagonal
+
+100
+[
+  randomColor dup shadowColor strokeStyle
+  save
+  100 [ trunk ] times
+  restore
+]
+times
+
+"3.png" writeImage
