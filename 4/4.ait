@@ -1,0 +1,54 @@
+@load ait-canvas ;
+@load ait-canvas/node ;
+@load ../utils/canvas ;
+@load ../utils/vec ;
+
+rotateAroundCenter: rotate ;
+
+shiftX: 0 translate ;
+shiftY: 0 swap translate ;
+
+spread:
+  [] swap
+  4
+  [ dup dup 4 / 4 _i 1 + - * - swap [swons] dip ]
+  times pop ;
+
+drawWithNeonEffect:
+  color shadowColor
+  "lighter" globalCompositeOperation
+  20 shadowBlur
+  spread
+  [ lineWidth dup exec ]
+  step pop ;
+
+point: [] cons cons ;
+square:
+  2 / -> w
+  -> y
+  -> x
+  beginPath
+  x w - y w - point moveTo
+  x w - y w + point lineTo
+  x w + y w + point lineTo
+  x w + y w - point lineTo
+  closePath
+  stroke ;
+
+color: "#0F52BA";
+
+initalizeCanvas
+"black" fillCanvas
+0.75 globalAlpha
+
+color strokeStyle
+80
+[
+  PI 4 / rotateAroundCenter
+  -20 20 random2 shiftX
+  -20 20 random2 shiftY
+  [ 0 0 10 400 random2 square ] 2 drawWithNeonEffect
+]
+times
+
+"4.png" writeImage
